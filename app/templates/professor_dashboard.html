@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professor Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ professor }}</h1>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Add Course Form -->
+    <h2>Add a New Course</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department" required><br>
+
+        <label for="course_number">Course Number:</label>
+        <input type="text" id="course_number" name="course_number" required><br>
+
+        <label for="course_name">Course Name:</label>
+        <input type="text" id="course_name" name="course_name" required><br>
+
+        <label for="syllabus">Upload Syllabus (PDF):</label>
+        <input type="file" id="syllabus" name="syllabus" accept=".pdf" required><br>
+
+        <button type="submit">Add Course</button>
+    </form>
+
+    <!-- Course Table -->
+    <h2>Existing Courses</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Course Number</th>
+                <th>Course Name</th>
+                <th>Syllabus</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i, course in enumerate(courses) %}
+            <tr>
+                <td>{{ course.department }}</td>
+                <td>{{ course.course_number }}</td>
+                <td>{{ course.course_name }}</td>
+                <td>
+                    <a href="{{ url_for('main.view_syllabus', filename=course.syllabus_filename) }}" target="_blank">
+                        View Syllabus
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ url_for('main.delete_course', course_id=i) }}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Logout Button -->
+    <a href="{{ url_for('main.logout') }}">Logout</a>
+</body>
+</html>
