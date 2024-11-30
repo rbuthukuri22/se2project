@@ -12,7 +12,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 PROFESSORS = {
     "dr.fu@uco.edu": "Spring@1",
-    "drqian@uco.edu": "Summer@1",
+    "dr,qian@uco.edu": "Summer@1",
     "m@uco.edu": "Fall@1",
     "dr.lee@uco.edu": "music@3",
     "dr.walker@uco.edu": "science@1",
